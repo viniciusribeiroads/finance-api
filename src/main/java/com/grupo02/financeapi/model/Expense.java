@@ -1,6 +1,7 @@
 package com.grupo02.financeapi.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.grupo02.financeapi.controller.dto.ExpenseDto;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -31,6 +32,15 @@ public class Expense implements Serializable {
         this.description = description;
         this.value = value;
         this.date = date;
+    }
+
+    public static Expense toEntity(ExpenseDto expenseDto) {
+        return new Expense(
+                expenseDto.getId(),
+                expenseDto.getDescription(),
+                expenseDto.getValue(),
+                expenseDto.getDate()
+        );
     }
 
     public Long getId() {
