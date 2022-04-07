@@ -17,22 +17,29 @@ public class RevenueController {
     RevenueService service;
 
     @GetMapping("/all")
-    public ResponseEntity<List<Revenue>> listAll() {
-        List<Revenue> revenues = service.listAll();
+    public ResponseEntity<List<RevenueDto>> listAll() {
+        List<RevenueDto> revenuesDto = service.listAll();
 
-        return ResponseEntity.ok(revenues);
+        return ResponseEntity.ok(revenuesDto);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Revenue> findBy(@PathVariable Long id) {
-        Revenue revenue = service.findBy(id);
+    public ResponseEntity<RevenueDto> findBy(@PathVariable Long id) {
+        RevenueDto revenueDto = service.findBy(id);
 
-        return ResponseEntity.ok(revenue);
+        return ResponseEntity.ok(revenueDto);
     }
 
     @PostMapping("/save")
     public ResponseEntity<RevenueDto> save(@RequestBody RevenueDto revenueDto) {
         service.save(revenueDto);
+
+        return ResponseEntity.ok().body(revenueDto);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<RevenueDto> update(@PathVariable Long id, @RequestBody RevenueDto revenueDto) {
+        service.update(id, revenueDto);
 
         return ResponseEntity.ok().body(revenueDto);
     }
