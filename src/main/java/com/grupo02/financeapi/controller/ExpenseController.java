@@ -34,6 +34,13 @@ public class ExpenseController {
         return expenseService.save(expenseDto);
     }
 
+    @DeleteMapping(path = "/remove/{id}")
+    public ResponseEntity deleteBy(@PathVariable Long id){
+        return expenseService.deleteBy(id);
+    }
+
+
+
 
 
 }

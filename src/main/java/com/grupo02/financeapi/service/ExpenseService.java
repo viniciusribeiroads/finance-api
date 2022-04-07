@@ -39,4 +39,15 @@ public class ExpenseService {
     public ExpenseDto save(ExpenseDto expenseDto) {
         return ExpenseDto.toDto(expenseRepository.save(Expense.toEntity(expenseDto)));
     }
+
+    public ResponseEntity deleteBy(Long id) {
+        return expenseRepository.findById(id)
+                .map(expense -> {
+                    expenseRepository.delete(expense);
+                    return ResponseEntity.ok().build();
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+
 }
