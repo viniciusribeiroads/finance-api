@@ -33,7 +33,7 @@ public class RevenueService {
         return new RevenueDto(revenue);
     }
 
-    public Revenue save(RevenueDto revenueDto) throws AlreadyRegisteredRevenueException {
+    public Revenue save(RevenueDto revenueDto) {
         Revenue revenue = fromDto(revenueDto);
         List<Revenue> revenues = repository.findAll();
 
