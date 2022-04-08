@@ -43,4 +43,9 @@ public class RevenueController {
 
         return ResponseEntity.ok().body(revenueDto);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+        return service.delete(id);
+    }
 }

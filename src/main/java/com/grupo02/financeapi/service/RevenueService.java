@@ -1,13 +1,15 @@
 package com.grupo02.financeapi.service;
 
 import com.grupo02.financeapi.controller.dto.RevenueDto;
-import com.grupo02.financeapi.service.exception.AlreadyRegisteredRevenueException;
 import com.grupo02.financeapi.model.Revenue;
 import com.grupo02.financeapi.repository.RevenueRepository;
+import com.grupo02.financeapi.service.exception.AlreadyRegisteredRevenueException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -64,5 +66,14 @@ public class RevenueService {
 
     public Revenue fromDto(RevenueDto revenueDto) {
         return new Revenue(null, revenueDto.getDescription(), revenueDto.getValue(), revenueDto.getDate());
+    }
+
+    public ResponseEntity delete(Long id) {
+        return repository.findById(id)
+                .map(revenue -> {
+                        repository.delete(revenue);
+                        return ResponseEntity.ok().build();
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 }
