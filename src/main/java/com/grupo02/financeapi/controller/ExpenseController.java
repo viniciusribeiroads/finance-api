@@ -39,6 +39,11 @@ public class ExpenseController {
         return expenseService.deleteBy(id);
     }
 
+    @PutMapping(path = "/update/{id}")
+    public ResponseEntity<Expense> update(@PathVariable Long id, ExpenseDto expenseDto){
+        return expenseService.update(id, expenseDto);
+    }
+
 
 
 

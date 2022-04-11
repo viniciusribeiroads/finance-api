@@ -2,11 +2,11 @@ package com.grupo02.financeapi.service;
 
 import com.grupo02.financeapi.controller.dto.ExpenseDto;
 import com.grupo02.financeapi.model.Expense;
-import com.grupo02.financeapi.model.Revenue;
 import com.grupo02.financeapi.repository.ExpenseRepository;
 import com.grupo02.financeapi.service.exception.AlreadyRegisteredExpenseException;
 import com.grupo02.financeapi.service.exception.AlreadyRegisteredRevenueException;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -53,6 +53,7 @@ public class ExpenseService {
         return ExpenseDto.toDto(expenseRepository.save(Expense.toEntity(expenseDto)));
     }
 
+    @Transient
     public ResponseEntity deleteBy(Long id) {
         return expenseRepository.findById(id)
                 .map(expense -> {
@@ -62,5 +63,14 @@ public class ExpenseService {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @Transient
+    public ResponseEntity<Expense> update(Long id, ExpenseDto expenseDto) {
+        Expense expense = expenseRepository.findById(id).get();
 
+        if (expense != null){
+            return ResponseEntity.status(HttpStatus.CREATED).body(expenseRepository.save(Expense.toEntity(expenseDto)));
+        }
+
+        return ResponseEntity.notFound().build();
+    }
 }
