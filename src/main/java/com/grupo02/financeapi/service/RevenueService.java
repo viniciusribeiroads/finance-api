@@ -27,10 +27,16 @@ public class RevenueService {
                 .collect(Collectors.toList());
     }
 
-    public RevenueDto findBy(Long id) {
+    public RevenueDto findById(Long id) {
         Revenue revenue = repository.findById(id).get();
 
         return new RevenueDto(revenue);
+    }
+
+    public List<RevenueDto> findByDescription(String description) {
+        List<Revenue> revenues = repository.findByDescription(description);
+
+        return revenues.stream().map(RevenueDto::new).collect(Collectors.toList());
     }
 
     public Revenue save(RevenueDto revenueDto) {
@@ -75,5 +81,11 @@ public class RevenueService {
                         return ResponseEntity.ok().build();
                 })
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    public List<RevenueDto> findByYearAndMonth(int year, int month) {
+        List<Revenue> revenues = repository.findByYearAndMonth(year, month);
+
+        return revenues.stream().map(RevenueDto::new).collect(Collectors.toList());
     }
 }

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -20,13 +21,13 @@ public class Revenue implements Serializable {
     private BigDecimal value;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private Date date;
+    private LocalDate date;
 
     public Revenue() {
 
     }
 
-    public Revenue(Long id, String description, BigDecimal value, Date date) {
+    public Revenue(Long id, String description, BigDecimal value, LocalDate date) {
         this.id = id;
         this.description = description;
         this.value = value;
@@ -57,11 +58,11 @@ public class Revenue implements Serializable {
         this.value = value;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
