@@ -25,9 +25,23 @@ public class RevenueController {
 
     @GetMapping("/{id}")
     public ResponseEntity<RevenueDto> findBy(@PathVariable Long id) {
-        RevenueDto revenueDto = service.findBy(id);
+        RevenueDto revenueDto = service.findById(id);
 
         return ResponseEntity.ok(revenueDto);
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<RevenueDto>> findByDescription(@RequestParam(name = "description") String description) {
+        List<RevenueDto> revenuesDto = service.findByDescription(description);
+
+        return ResponseEntity.ok(revenuesDto);
+    }
+
+    @GetMapping("/{year}/{month}")
+    public ResponseEntity<List<RevenueDto>> findByYear(@PathVariable int year, @PathVariable int month) {
+        List<RevenueDto> revenuesDto = service.findByYearAndMonth(year, month);
+
+        return ResponseEntity.ok(revenuesDto);
     }
 
     @PostMapping("/save")

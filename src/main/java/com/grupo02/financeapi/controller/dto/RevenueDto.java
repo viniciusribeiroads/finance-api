@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.grupo02.financeapi.model.Revenue;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class RevenueDto {
@@ -12,7 +13,7 @@ public class RevenueDto {
     private BigDecimal value;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private Date date;
+    private LocalDate date;
 
     public RevenueDto() {
 
@@ -32,7 +33,7 @@ public class RevenueDto {
         return value;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 }
